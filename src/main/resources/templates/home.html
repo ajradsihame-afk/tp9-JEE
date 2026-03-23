@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #312e81);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .home-card {
+            width: 850px;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px);
+            color: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #c7d2fe;
+            margin-bottom: 25px;
+        }
+
+        .info {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .info.secondary {
+            background: rgba(100, 116, 139, 0.15);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .label {
+            color: #93c5fd;
+            font-weight: 600;
+        }
+
+        .value {
+            color: #e0e7ff;
+            font-weight: bold;
+        }
+
+        .actions {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+        }
+
+        .btn-user {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-admin {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="home-card">
+
+    <h1>Application sécurisée</h1>
+    <p class="subtitle">Gestion des accès avec Spring Security</p>
+
+    <!-- Si utilisateur connecté -->
+    <div class="info" th:if="${username != null}">
+        <p><span class="label">Utilisateur :</span>
+            <span class="value" th:text="${username}"></span></p>
+
+        <p><span class="label">Rôles :</span>
+            <span class="value" th:text="${roles}"></span></p>
+    </div>
+
+    <!-- Si utilisateur NON connecté -->
+    <div class="info secondary" th:if="${username == null}">
+        <p>Aucun utilisateur connecté actuellement.</p>
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/login}" class="btn btn-login">Se connecter</a>
+        <a th:href="@{/user/dashboard}" class="btn btn-user">Espace utilisateur</a>
+        <a th:href="@{/admin/dashboard}" class="btn btn-admin">Espace admin</a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-logout">Se déconnecter</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

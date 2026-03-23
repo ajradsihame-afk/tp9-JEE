@@ -1,0 +1,60 @@
+// Plugins utilisés dans le projet
+plugins {
+	// Plugin Java de base
+	id 'java'
+
+	// Plugin Spring Boot (permet de créer et exécuter une application Spring Boot)
+	id 'org.springframework.boot' version '3.5.12'
+
+	// Gère automatiquement les versions des dépendances Spring
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+// Définition du groupe et de la version du projet
+group = 'ma.fstg.security'
+version = '0.0.1-SNAPSHOT'
+
+// Configuration de la version Java utilisée
+java {
+	toolchain {
+		// Utilisation de Java 21
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+// Dépôts pour télécharger les dépendances
+repositories {
+	// Dépôt central Maven (le plus utilisé)
+	mavenCentral()
+}
+
+// Liste des dépendances du projet
+dependencies {
+
+	// Spring Security : gestion de l'authentification et autorisation
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Thymeleaf : moteur de templates pour créer des pages HTML dynamiques
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// Spring Web : permet de créer des contrôleurs, APIs REST, etc.
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Intégration Thymeleaf avec Spring Security (gestion des rôles dans HTML)
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	// Dépendances pour les tests
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Tests spécifiques à Spring Security
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Lanceur de tests JUnit
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Configuration de l'exécution des tests
+tasks.named('test') {
+	// Utilisation de JUnit Platform (JUnit 5)
+	useJUnitPlatform()
+}
